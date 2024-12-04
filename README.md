@@ -1,4 +1,4 @@
-# 💻 AWS Node - Desafio 02 API - GRUPO:THE BIG NODE THEORY
+# 💻 AWS Node - Desafio 03 API -
 
 ## Descrição
 
@@ -16,6 +16,8 @@ Esse projeto foi desenvolvido durante a trilha de Node.js do programa de bolsas 
 3. npx sequelize-cli db:seed:all -> execute as seeds para criar um usuário teste no banco de dados.
 
 -   Execute o projeto utilizando o comando `npm run dev` no terminal.
+-   Execute os testes unitarios utilizando o comando `npm test` no terminal.
+
 
 ## Tecnologias utilizadas
 
@@ -30,6 +32,7 @@ Esse projeto foi desenvolvido durante a trilha de Node.js do programa de bolsas 
 -   Celebrate
 -   Bcrypt
 -   Eslint
+-   Jest, Mock
 
 ## ROTAS
 
