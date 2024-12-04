@@ -1,40 +1,121 @@
-# 💻 AWS Node - Desafio 02 API - GRUPO:THE BIG NODE THEORY
+
+# CompassCar API - Documentação
 
 ## Descrição
 
-Esse projeto foi desenvolvido durante a trilha de Node.js do programa de bolsas da Compass UOL e tem como objetivo criar uma API simulando um sistema da empresa CompassCar que possui funcionalidades desde o cadastramento de usuários, clientes e carros até a criação e gerenciamento de pedidos
+Este projeto foi desenvolvido como parte da trilha de Node.js do programa de bolsas da **Compass UOL**. O objetivo principal é criar uma API simulando o sistema **CompassCar**, que oferece funcionalidades como cadastramento de usuários, clientes, carros, e o gerenciamento de pedidos.
+
+---
 
 ## Como executar o projeto?
 
--   Utilizando no terminal o comando `git clone` https://github.com/RickM19/AWS_NODE_SET24_DESAFIO_02_THE_BIG_NODE_THEORY crie uma cópia desse projeto em seu repositório local
--   Instale as dependências necessárias utilizando o comando `npm install`
--   Inicie o seu MySQL e configure a conexão do sequelize ao seu usuário.
--   Em seu terminal utilize nessa ordem as seguintes linhas de comando:
+1. **Clone o repositório**  
+   Execute o comando abaixo no terminal para clonar o repositório do GitHub:  
+   ```bash
+   git clone https://github.com/RickM19/AWS_NODE_SET24_DESAFIO_02_THE_BIG_NODE_THEORY
+   ```
+   Em seguida, acesse o diretório do projeto:  
+   ```bash
+   cd AWS_NODE_SET24_DESAFIO_02_THE_BIG_NODE_THEORY
+   ```
 
-1. npx sequelize db:create -> crie o banco de dados em sua máquina a partir do arquivo de configuração.
-2. npx sequelize db:migrate -> execute as migrações existentes.
-3. npx sequelize-cli db:seed:all -> execute as seeds para criar um usuário teste no banco de dados.
+2. **Instale as dependências**  
+   Execute o comando abaixo no terminal para instalar todas as dependências do projeto:  
+   ```bash
+   npm install
+   ```
 
--   Execute o projeto utilizando o comando `npm run dev` no terminal.
+3. **Configure o banco de dados MySQL**  
+   - Certifique-se de que o MySQL está ativo em sua máquina.  
+   - Abra o arquivo `config/config.json` e atualize as credenciais do seu banco de dados local.  
+
+4. **Execute as etapas do Sequelize**  
+   Siga a sequência abaixo para configurar o banco de dados:  
+   - Crie o banco de dados:  
+     ```bash
+     npx sequelize db:create
+     ```
+   - Execute as migrações:  
+     ```bash
+     npx sequelize db:migrate
+     ```
+   - Popule o banco com dados iniciais:  
+     ```bash
+     npx sequelize-cli db:seed:all
+     ```
+
+5. **Inicie o servidor**  
+   Execute o comando abaixo no terminal para iniciar o servidor em ambiente de desenvolvimento:  
+   ```bash
+   npm run dev
+   ```
+
+6. **Acesse a aplicação**  
+   O servidor estará disponível em:  
+   - **Base URL:** `http://localhost:3000`  
+
+---
+
+## Como executar os testes unitários?
+
+O projeto possui testes unitários configurados para validar as funcionalidades implementadas. Para executar os testes:
+
+1. Certifique-se de que todas as dependências do projeto foram instaladas:  
+   ```bash
+   npm install
+   ```
+
+2. Execute o comando abaixo no terminal para rodar os testes:  
+   ```bash
+   npm test
+   ```
+
+3. Verifique o resultado dos testes exibido no terminal.
+
+Os testes utilizam **Jest** como framework de testes.
+
+---
 
 ## Tecnologias utilizadas
 
--   Node.js
--   NPM
--   Express
--   Sequelize
--   MySQL
--   Typescript
--   Axios
--   Jswonwebtoken
--   Celebrate
--   Bcrypt
--   Eslint
+As seguintes tecnologias foram utilizadas no desenvolvimento deste projeto:
 
-## ROTAS
+- **Node.js**
+- **Express**
+- **Sequelize**
+- **MySQL**
+- **TypeScript**
+- **Axios**
+- **Jsonwebtoken**
+- **Celebrate**
+- **Bcrypt**
+- **ESLint**
+- **Jest, Mock**
 
--   Login: `/api/v1/login`
--   Usuários: `/api/v1/users`
--   Clientes: `/api/v1/customers`
--   Carros: `/api/v1/cars`
--   Pedidos: `/api/v1/Order`
+---
+
+## Rotas principais
+
+Abaixo estão listadas as principais rotas disponíveis na API:
+
+### **Login**
+- **POST /api/v1/login**  
+  Autentica um usuário no sistema.
+
+### **Usuários**
+- **GET /api/v1/users**  
+  Retorna a lista de usuários cadastrados.  
+
+### **Clientes**
+- **GET /api/v1/customers**  
+  Retorna os dados de todos os clientes cadastrados.
+
+### **Carros**
+- **GET /api/v1/cars**  
+  Lista os carros disponíveis no sistema.  
+
+### **Pedidos**
+- **POST /api/v1/orders**  
+  Cria um novo pedido para um cliente.
+
+---
