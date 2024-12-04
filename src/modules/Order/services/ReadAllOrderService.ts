@@ -1,56 +1,90 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 
-import Order from '../models/Order';
-import Customer from '../../customer/models/Customer';
-import { AppError } from '../../../shared/errors/AppError';
-import { Op } from 'sequelize';
+import Order from "../models/Order";
+import Customer from "../../customer/models/Customer";
+import { AppError } from "../../../shared/errors/AppError";
+import { Model, Op } from "sequelize";
 
 interface GetOdersParams {
-    status?: string;
-    CPF?: string;
-    DataInicial?: string;
-    DataFinal?: string;
-    page?: number;
-    pageSize?: number;
+  status?: string;
+  CPF?: string;
+  DataInicial?: string;
+  DataFinal?: string;
+  page?: number;
+  pageSize?: number;
 }
 
-const getOrders = async ({ status, CPF, DataInicial, DataFinal, page, pageSize }: GetOdersParams): Promise <{ totalOrders: number; totalPages: number; orders: Order[] }> => {
-    const where: Record<string, unknown >= {};
+const getOrders = async ({
+  status,
+  CPF,
+  DataInicial,
+  DataFinal,
+  page,
+  pageSize,
+}: GetOdersParams): Promise<{
+  totalOrders: number;
+  totalPages: number;
+  orders: Order[];
+}> => {
+  const where: Record<string, unknown> = {};
+  let ordenacao = "ASC";
+  let ordem = "DataInicial";
+  if (status) {
+    where.status = status;
+  }
 
-    if (status) {
-        where.status = status;
-    }
-
-    if (CPF) {
-        where.CPF = CPF
-    }
-
-    if (DataInicial || DataFinal) {
-        where.DataInicial = {};
-        where.DataFinal = {};
-
-        if (DataInicial) {
-            where.DataInicial[Op.gte] = new Date(DataInicial)
-        }
-
-        if (DataFinal) {
-            where.DataFinal[Op.lte] = new Date(DataFinal);
-        }
-    }
-
-    const { count, rows } = await Order.findAndCountAll({
-        where,
-        order: [['DataInicial', 'ASC']],
-        limit: pageSize,
-        offset: (page - 1) * pageSize,
+  if (CPF) {
+    const searchCPF = await Customer.findOne({
+      where: { CPF },
     });
+    where.Cliente = searchCPF.id;
+  }
 
-    return {
-        totalOrders: count,
-        totalPages: Math.ceil( count / pageSize ),
-        orders: rows,
-    };
+  if (DataInicial || DataFinal) {
+    where.DataInicial = {};
+    where.DataFinal = {};
+
+    if (DataInicial) {
+      where.DataInicial = { [Op.gte]: new Date(DataInicial) };
+    }
+
+    if (DataFinal) {
+      where.DataFinal = { [Op.gte]: new Date(DataFinal) };
+      ordenacao = "DESC";
+      ordem = "DataFinal";
+    }
+  }
+
+  const { count, rows } = await Order.findAndCountAll({
+    where,
+    order: [[ordem, ordenacao]],
+    limit: pageSize,
+    offset: (page - 1) * pageSize,
+    atributes: [
+      "id",
+      "status",
+      "DataInicial",
+      "DataFinal",
+      "DataCancelamento",
+      "ValorTotal",
+      "CEP",
+      "Cidade",
+      "UF",
+    ],
+    include: [
+      {
+        model: Customer,
+        attributes: ["id", "nome", "cpf"],
+      },
+    ],
+  });
+
+  return {
+    totalOrders: count,
+    totalPages: Math.ceil(count / pageSize),
+    orders: rows,
+  };
 };
 
-export default{ getOrders};
+export default { getOrders };
