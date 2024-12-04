@@ -75,7 +75,7 @@ module.exports = {
             },
         },
         DataCancelamento: {
-            type: Sequelize.STRING,
+            type: Sequelize.DATE,
             allowNull: true,
             defaultValue: null,
             validate: {

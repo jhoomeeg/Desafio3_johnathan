@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  db:
+    image: mysql:5.7
+    container_name: compasscar_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: maia22
+      MYSQL_DATABASE: compasscardb
+      MYSQL_USER: root
+      MYSQL_PASSWORD: maia22
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  app:
+    build:
+      context: .
+    container_name: compasscar_app
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PASSWORD: maia22
+      DB_NAME: compasscardb
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+
+volumes:
+  db_data:
