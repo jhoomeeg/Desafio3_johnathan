@@ -6,9 +6,9 @@ services:
     container_name: compasscar_mysql
     environment:
       MYSQL_ROOT_PASSWORD: maia22
-      MYSQL_DATABASE: compasscardb
       MYSQL_USER: root
       MYSQL_PASSWORD: maia22
+      MYSQL_DATABASE: compasscardb
     ports:
       - "3306:3306"
     volumes:
@@ -19,14 +19,17 @@ services:
       context: .
     container_name: compasscar_app
     environment:
-      DB_HOST: db
-      DB_USER: root
-      DB_PASSWORD: maia22
-      DB_NAME: compasscardb
+      MYSQL_USER: root
+      MYSQL_PASSWORD: maia22
+      MYSQL_DATABASE: compasscardb
+      MYSQL_HOST: db
+      MYSQL_PORT: 3306
     ports:
       - "3000:3000"
     depends_on:
       - db
+    volumes:
+      - .:/app
 
 volumes:
   db_data:

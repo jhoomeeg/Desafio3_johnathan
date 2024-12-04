@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "root",
+    "password": "maia22",
+    "database": "compasscardb",
+    "host": "db",
+    "dialect": "mysql",
+    "port": 3306
+  },
+  "test": {
+    "username": "root",
+    "password": "maia22",
+    "database": "compasscardb_test",
+    "host": "db",
+    "dialect": "mysql",
+    "port": 3306
+  },
+  "production": {
+    "username": "root",
+    "password": "maia22",
+    "database": "compasscardb_prod",
+    "host": "db",
+    "dialect": "mysql",
+    "port": 3306
+  }
+}
